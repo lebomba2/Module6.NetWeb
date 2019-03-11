@@ -1,0 +1,28 @@
+﻿@using Blogs.Models
+@model IEnumerable<Blog>
+
+<div class="bg-primary m-1 p-1 text-white"><h4>Blog Listing</h4></div>
+<!-- if the the number of blogs is 0-->
+@if (Model.Count() == 0)
+{
+    <p>There are no blogs</p>
+}
+else
+{
+    <ul>
+        // razor foreach loop, enumerating through the blogs
+        @foreach (Blog blog in Model)
+        {
+            <!-- for each blog print this list item-->
+        <li>
+            <!-- anchor tag to the blog details page. asp-action to the BlogDetail method in the home controller-->
+            <a asp-action="BlogDetail" asp-route-id="@blog.BlogId">@blog.Name</a> | 
+            <!-- anchor tag to delete the blog. asp-action to the DeleteBlog method in the home controller -->
+            <a asp-action="DeleteBlog" asp-route-id="@blog.BlogId">Delete</a>
+        </li>
+        }
+    </ul>
+}
+<hr />
+<!-- instead of href, use asp-action to direct to execute a method from the controller-->
+<a asp-action="AddBlog">New Blog</a>

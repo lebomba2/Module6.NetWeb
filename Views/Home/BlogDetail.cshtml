@@ -1,0 +1,28 @@
+﻿@using Blogs.Models
+@model PostViewModel
+
+<div class="bg-primary m-1 p-1 text-white"><h4>@Model.blog.Name Details</h4></div>
+<!-- if the count of Posts is 0-->
+@if (Model.Posts.Count() == 0)
+{
+    <p>There are no posts</p>
+}
+else
+{
+    <ul>
+        <!-- Razor foreach loop, enumerating through the Posts-->
+        @foreach (Post post in Model.Posts)
+        {
+        <li>
+            <!-- display the post title and content-->
+            @post.Title - @post.Content |
+            <!-- asp-action call the DeletePost method in the home controller -->
+            <a asp-action="DeletePost" asp-route-id="@post.PostId">Delete</a>
+        </li>
+        }
+    </ul>
+}
+
+<hr />
+<a asp-action="Index">Home</a> | 
+<a asp-action="AddPost" asp-route-id="@Model.blog.BlogId">New Post</a>
